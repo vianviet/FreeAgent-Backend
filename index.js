@@ -3,12 +3,14 @@ const mongoose = require('mongoose');
 const { connectDB } = require('./db');
 const userController = require('./src/Controller/userController');
 require("dotenv").config();
+const cors = require('cors')
 
 const port = process.env.PORT;
 
 const main = async() => {
     connectDB();
     const app = express();
+    app.use(cors());
     app.use(express.json());
     app.use('/user', userController)
     app.listen(port, () => {
