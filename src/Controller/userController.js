@@ -12,4 +12,5 @@ userController.post("/authen", async(req, res) => {
 userController.post("/register", async(req, res) => {
     Register(req, res);
 });
+
 module.exports = userController

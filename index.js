@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const { connectDB } = require('./db');
 const userController = require('./src/Controller/userController');
+const calendarController = require('./src/Controller/calendarController');
 require("dotenv").config();
 const cors = require('cors')
 
@@ -13,6 +14,7 @@ const main = async() => {
     app.use(cors());
     app.use(express.json());
     app.use('/user', userController)
+    app.use('/calendar', calendarController)
     app.listen(port, () => {
         console.log(`Example app listening on port ${port}`);
     });
