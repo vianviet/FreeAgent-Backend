@@ -1,0 +1,25 @@
+{
+    "name": "freeagent",
+    "version": "4.0.0",
+    "description": "no",
+    "main": "index.js",
+    "scripts": {
+        "viet": "nodemon index.js",
+        "test": "no"
+    },
+    "repository": {
+        "type": "git",
+        "url": "no"
+    },
+    "keywords": [
+        "no"
+    ],
+    "author": "vianviet2502",
+    "license": "ISC",
+    "dependencies": {
+        "dotenv": "^16.0.1",
+        "express": "^4.18.1",
+        "mongoose": "^6.3.3",
+        "validator": "^13.7.0"
+    }
+}
