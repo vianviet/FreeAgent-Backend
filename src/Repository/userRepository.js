@@ -10,8 +10,12 @@ async function findUser(username, password) {
     const user = await User.findOne(query)
     return user
 }
+async function findAllRepo() {
+    const user = await User.find()
+    return user
+}
 
-module.exports = { findUser }
+module.exports = { findUser, findAllRepo }
 
 // const admin = new User({ name: 'admin', password: 'admin' });
 // admin.save(function(err) {

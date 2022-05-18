@@ -1,4 +1,6 @@
-const { findUser } = require("../Repository/userRepository")
+const { findUser, findAllRepo } = require("../Repository/userRepository")
+
+
 
 
 async function Authen(req, res) {
@@ -11,4 +13,13 @@ async function Authen(req, res) {
         return res.status(400).json({ "message": "Dang nhap that bai" }).end()
     }
 }
-module.exports = { Authen }
+
+async function FindAll(req, res) {
+    const allUser = await findAllRepo();
+    if (allUser) {
+        return res.status(200).json(allUser).end()
+    } else {
+        return res.status(400).json({ "message": "Loi" }).end()
+    }
+}
+module.exports = { Authen, FindAll }
