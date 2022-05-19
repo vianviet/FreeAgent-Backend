@@ -21,16 +21,19 @@ async function FindAll(req, res) {
 async function Register(req, res) {
     const existUserName = await findByUserName(req.body.username);
     const existEmail = await findByEmail(req.body.email);
-    if (!existUserName || !existEmail) {
-        // const user = { username: req.body.username, password: md5(req.body.password) }
+    if (existEmail) {
+        return res.status(400).json({ message: "email existing, please try another email" }).end()
+
+    } else if (existUserName) {
+        return res.status(400).json({ message: "username existing, please try another username" }).end()
+    } else {
         const result = await AddUser(req.body);
         if (result) {
             return res.status(200).json(result).end()
         } else {
             return res.status(400).json({ message: "Da xay ra loi trong qua trinh dang ki" }).end()
         }
-    } else {
-        return res.status(400).json({ message: "Ten dang nhap hoac email da ton tai" }).end()
+
     }
 
 }
