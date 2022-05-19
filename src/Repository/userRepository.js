@@ -57,8 +57,21 @@ async function AddUser(user) {
     return newUser
 }
 
+async function updateOne(user) {
+    const newUser = await User.updateOne(
+        user.username ? { username: user.username } : { email: user.email }, user);
+    return newUser
+}
 
-module.exports = { findByUserName, findUser, findAllRepo, AddUser, findByEmail }
+async function deleteOne(user) {
+    const newUser = await User.deleteOne(user.username ? { username: user.username } : {
+        email: user.email
+    });
+    return newUser
+}
+
+
+module.exports = { findByUserName, findUser, findAllRepo, AddUser, findByEmail, deleteOne, updateOne }
 
 // const admin = new User({ name: 'admin', password: 'admin' });
 // admin.save(function(err) {

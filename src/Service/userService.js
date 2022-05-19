@@ -1,4 +1,4 @@
-const { findUser, findAllRepo, AddUser, findByUserName, findByEmail } = require("../Repository/userRepository")
+const { findUser, findAllRepo, AddUser, findByUserName, findByEmail, deleteOne, updateOne } = require("../Repository/userRepository")
 const md5 = require('md5')
 
 async function Authen(req, res) {
@@ -37,5 +37,25 @@ async function Register(req, res) {
     }
 
 }
+async function Update(req, res) {
+    const user = req.body
+    if (user.password) {
+        user.password = md5(user.password)
+    }
+    const result = await updateOne(user);
+    if (result.modifiedCount > 0) {
+        return res.status(200).json(result).end()
+    } else {
+        return res.status(400).json(result).end()
+    }
+}
+async function Delete(req, res) {
+    const result = await deleteOne(req.body);
+    if (result.deletedCount > 0) {
+        return res.status(200).json(result).end()
+    } else {
+        return res.status(400).json(result).end()
+    }
+}
 
-module.exports = { Authen, FindAll, Register }
+module.exports = { Authen, FindAll, Register, Update, Delete }
