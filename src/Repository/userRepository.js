@@ -4,7 +4,7 @@ const { unsubscribe } = require('../Controller/calendarController');
 const schema = new mongoose.Schema({
     username: { type: String, unique: true, required: true },
     password: { type: String, required: true },
-    email: { type: String, required: true },
+    email: { type: String, unique: true, required: true },
     agentcode: { type: String },
     agentname: { type: String },
     expireddate: { type: Date },
@@ -16,8 +16,14 @@ const User = mongoose.model('user', schema);
 
 async function findByUserName(username) {
     const query = { username: [username] }
-    const user = await User.findOne(query)
-    return user
+    const users = await User.findOne(query)
+    return users
+
+}
+async function findByEmail(email) {
+    const query = { email: [email] }
+    const users = await User.findOne(query)
+    return users
 
 }
 
@@ -52,7 +58,7 @@ async function AddUser(user) {
 }
 
 
-module.exports = { findByUserName, findUser, findAllRepo, AddUser }
+module.exports = { findByUserName, findUser, findAllRepo, AddUser, findByEmail }
 
 // const admin = new User({ name: 'admin', password: 'admin' });
 // admin.save(function(err) {
