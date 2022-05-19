@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const schema1 = new mongoose.Schema({ username: 'string', password: 'string' });
 const schema = new mongoose.Schema({
     title: 'String',
     start: 'Date',

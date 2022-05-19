@@ -2,7 +2,6 @@ const { findUser, findAllRepo, AddUser, findByUserName } = require("../Repositor
 const md5 = require('md5')
 
 async function Authen(req, res) {
-    // console.log('tren', findUser(req.body.username, req.body.password));
     const authen = await findUser(req.body.username, md5(req.body.password));
     if (authen) {
         return res.status(200).json({ "message": "Dang nhap thanh cong" }).end()
@@ -22,8 +21,8 @@ async function FindAll(req, res) {
 async function Register(req, res) {
     const existUserName = await findByUserName(req.body.username);
     if (!existUserName) {
-        const user = { username: req.body.username, password: md5(req.body.password) }
-        const result = await AddUser(user);
+        // const user = { username: req.body.username, password: md5(req.body.password) }
+        const result = await AddUser(req.body);
         if (result) {
             return res.status(200).json(result).end()
         } else {
