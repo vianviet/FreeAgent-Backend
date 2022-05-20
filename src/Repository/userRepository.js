@@ -57,9 +57,8 @@ async function AddUser(user) {
     return newUser
 }
 
-async function updateOne(user) {
-    const newUser = await User.updateOne(
-        user.username ? { username: user.username } : { email: user.email }, user);
+async function updateOne(id, user) {
+    const newUser = await User.updateOne({ _id: mongoose.Types.ObjectId(id) }, user);
     return newUser
 }
 

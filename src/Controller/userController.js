@@ -12,7 +12,7 @@ userController.post("/authen", async(req, res) => {
 userController.post("/", async(req, res) => {
     Register(req, res);
 });
-userController.put("/", async(req, res) => {
+userController.put("/:id", async(req, res) => {
     Update(req, res);
 });
 userController.delete("/:id", async(req, res) => {

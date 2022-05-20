@@ -40,7 +40,7 @@ async function Update(req, res) {
     if (user.password) {
         user.password = md5(user.password)
     }
-    const result = await updateOne(user);
+    const result = await updateOne(req.params.id, user);
     if (result.modifiedCount > 0) {
         return res.status(200).json(result).end()
     } else {
