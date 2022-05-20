@@ -33,9 +33,7 @@ async function Register(req, res) {
         } else {
             return res.status(400).json({ message: "Da xay ra loi trong qua trinh dang ki" }).end()
         }
-
     }
-
 }
 async function Update(req, res) {
     const user = req.body
@@ -50,7 +48,7 @@ async function Update(req, res) {
     }
 }
 async function Delete(req, res) {
-    const result = await deleteOne(req.body);
+    const result = await deleteOne(req.params.id);
     if (result.deletedCount > 0) {
         return res.status(200).json(result).end()
     } else {

@@ -63,10 +63,8 @@ async function updateOne(user) {
     return newUser
 }
 
-async function deleteOne(user) {
-    const newUser = await User.deleteOne(user.username ? { username: user.username } : {
-        email: user.email
-    });
+async function deleteOne(id) {
+    const newUser = await User.deleteOne({ _id: mongoose.Types.ObjectId(id) });
     return newUser
 }
 

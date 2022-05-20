@@ -15,7 +15,7 @@ userController.post("/", async(req, res) => {
 userController.put("/", async(req, res) => {
     Update(req, res);
 });
-userController.delete("/", async(req, res) => {
+userController.delete("/:id", async(req, res) => {
     Delete(req, res);
 });
 
