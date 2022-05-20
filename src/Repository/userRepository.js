@@ -36,17 +36,20 @@ async function findAllRepo() {
     const user = await User.find()
     return user
 }
+async function findOne(id) {
+    const user = await User.findOne({ _id: mongoose.Types.ObjectId(id) })
+    return user
+}
 async function AddUser(user) {
     const newUser = new User({
         username: user.username,
         password: md5(user.password),
         email: user.email,
-        agentcode: user.agentcode ? user.agentcode : "none",
-        agentname: user.angentname ? user.angentname : "none",
-        expireddate: user.expireddate ? user.expireddate : Date.now(),
+        agentcode: user.agentcode,
+        agentname: user.agentname,
+        expireddate: user.expireddate,
         syncdate: Date.now(),
         status: user.status ? user.status : true,
-        key: (await findAllRepo()).length + 1
     });
     await newUser.save(function(err) {
         if (err) {
@@ -68,7 +71,7 @@ async function deleteOne(id) {
 }
 
 
-module.exports = { findByUserName, findUser, findAllRepo, AddUser, findByEmail, deleteOne, updateOne }
+module.exports = { findByUserName, findUser, findAllRepo, AddUser, findByEmail, deleteOne, updateOne, findOne }
 
 // const admin = new User({ name: 'admin', password: 'admin' });
 // admin.save(function(err) {

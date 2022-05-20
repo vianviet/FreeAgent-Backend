@@ -1,12 +1,12 @@
-const { findUser, findAllRepo, AddUser, findByUserName, findByEmail, deleteOne, updateOne } = require("../Repository/userRepository")
+const { findUser, findAllRepo, AddUser, findByUserName, findByEmail, deleteOne, updateOne, findOne } = require("../Repository/userRepository")
 const md5 = require('md5')
 
 async function Authen(req, res) {
     const authen = await findUser(req.body.username, md5(req.body.password));
     if (authen) {
-        return res.status(200).json({ "message": "Dang nhap thanh cong" }).end()
+        return res.status(200).json(authen).end()
     } else {
-        return res.status(400).json({ "message": "Dang nhap that bai" }).end()
+        return res.status(400).json({ "message": "Login Fail" }).end()
     }
 }
 
@@ -16,6 +16,14 @@ async function FindAll(req, res) {
         return res.status(200).json(allUser).end()
     } else {
         return res.status(400).json({ "message": "Loi" }).end()
+    }
+}
+async function FindOne(req, res) {
+    const user = await findOne(req.params.id);
+    if (user) {
+        return res.status(200).json(user).end()
+    } else {
+        return res.status(400).json({ "message": "user not found" }).end()
     }
 }
 async function Register(req, res) {
@@ -56,4 +64,4 @@ async function Delete(req, res) {
     }
 }
 
-module.exports = { Authen, FindAll, Register, Update, Delete }
+module.exports = { Authen, FindAll, Register, Update, Delete, FindOne }
