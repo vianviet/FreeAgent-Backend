@@ -29,4 +29,6 @@ function verifyToken(req, res, next) {
         return res.status(403).json({ message: error.message })
     }
 }
+
+
 module.exports = { generateToken, verifyToken }
