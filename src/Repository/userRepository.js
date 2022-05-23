@@ -10,7 +10,6 @@ const schema = new mongoose.Schema({
     expireddate: { type: Date },
     syncdate: { type: Date },
     status: { type: Boolean },
-    key: { type: Number }
 });
 const User = mongoose.model('user', schema);
 
