@@ -24,9 +24,9 @@ function verifyToken(req, res, next) {
 
         console.log(decoded)
         next()
-    } catch (error) {
-        console.log(error)
-        return res.status(403).json({ message: error.message })
+    } catch (err) {
+        console.log("err", err)
+        return res.status(402).json(err)
     }
 }
 
