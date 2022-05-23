@@ -6,7 +6,7 @@ async function Authen(req, res) {
     const authen = await findUser(req.body.username, md5(req.body.password));
     if (authen) {
         const { username, _id, email } = authen
-        return res.status(200).json({ token: generateToken({ authen }) }).end()
+        return res.status(200).json({ token: generateToken({ username, _id, email }) }).end()
     } else {
         return res.status(400).json({ "message": "Fail to Login" }).end()
     }
