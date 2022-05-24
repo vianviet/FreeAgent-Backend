@@ -10,6 +10,7 @@ const schema = new mongoose.Schema({
     expireddate: { type: Date },
     syncdate: { type: Date },
     status: { type: Boolean },
+    refreshtoken: { type: String },
 });
 const User = mongoose.model('user', schema);
 
@@ -49,6 +50,7 @@ async function AddUser(user) {
         expireddate: user.expireddate,
         syncdate: Date.now(),
         status: user.status ? user.status : true,
+        refreshtoken: "",
     });
     await newUser.save(function(err) {
         if (err) {

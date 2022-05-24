@@ -1,11 +1,12 @@
 const { findUser, findAllRepo, AddUser, findByUserName, findByEmail, deleteOne, updateOne, findOne } = require("../Repository/userRepository")
 const md5 = require('md5');
-const { generateToken } = require("../Auth/Auth");
+const { generateToken, generateRefreshToken } = require("../Auth/Auth");
 
 async function Authen(req, res) {
     const authen = await findUser(req.body.username, md5(req.body.password));
     if (authen) {
         const { username, _id, email } = authen
+        const result = await updateOne(_id, { refreshtoken: generateRefreshToken({ username, _id, email }) })
         return res.status(200).json({ token: generateToken({ username, _id, email }) }).end()
     } else {
         return res.status(400).json({ "message": "Fail to Login" }).end()

@@ -4,7 +4,8 @@ const { connectDB } = require('./db');
 const userController = require('./src/Controller/userController');
 const calendarController = require('./src/Controller/calendarController');
 require("dotenv").config();
-const cors = require('cors')
+const cors = require('cors');
+const refreshTokenController = require('./src/Controller/refreshTokenController');
 
 const port = process.env.PORT;
 
@@ -15,6 +16,7 @@ const main = async() => {
     app.use(express.json());
     app.use('/user', userController)
     app.use('/calendar', calendarController)
+    app.use('/refreshToken', refreshTokenController)
     app.listen(port, () => {
         console.log(`Example app listening on port ${port}`);
     });
