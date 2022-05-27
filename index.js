@@ -4,7 +4,7 @@ const { connectDB } = require('./db');
 const calendarRoute = require('./src/Router/Calendar');
 require("dotenv").config();
 const cors = require('cors');
-const refreshTokenRoute = require('./src/Router/refreshToken');
+const refreshTokenRoute = require('./src/Router/RefreshToken');
 const userRoute = require('./src/Router/User');
 
 const port = process.env.PORT;
