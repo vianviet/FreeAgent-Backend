@@ -1,18 +1,8 @@
 const md5 = require('md5');
 const mongoose = require('mongoose');
-const { unsubscribe } = require('../Controller/calendarController');
-const schema = new mongoose.Schema({
-    username: { type: String, unique: true, required: true },
-    password: { type: String, required: true },
-    email: { type: String, unique: true, required: true },
-    agentcode: { type: String },
-    agentname: { type: String },
-    expireddate: { type: Date },
-    syncdate: { type: Date },
-    status: { type: Boolean },
-    refreshtoken: { type: String },
-});
-const User = mongoose.model('user', schema);
+const UserModel = require('../Model/User');
+
+const User = UserModel;
 
 async function findByUserName(username) {
     const query = { username: [username] }

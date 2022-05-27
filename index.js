@@ -1,11 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const { connectDB } = require('./db');
-const userController = require('./src/Controller/userController');
-const calendarController = require('./src/Controller/calendarController');
+const calendarRoute = require('./src/Router/Calendar');
 require("dotenv").config();
 const cors = require('cors');
-const refreshTokenController = require('./src/Controller/refreshTokenController');
+const refreshTokenRoute = require('./src/Router/refreshToken');
+const userRoute = require('./src/Router/User');
 
 const port = process.env.PORT;
 
@@ -14,9 +14,9 @@ const main = async() => {
     const app = express();
     app.use(cors());
     app.use(express.json());
-    app.use('/user', userController)
-    app.use('/calendar', calendarController)
-    app.use('/refreshToken', refreshTokenController)
+    app.use('/user', userRoute)
+    app.use('/calendar', calendarRoute)
+    app.use('/refreshToken', refreshTokenRoute)
     app.listen(port, () => {
         console.log(`Example app listening on port ${port}`);
     });

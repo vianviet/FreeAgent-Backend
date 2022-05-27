@@ -1,13 +1,7 @@
 const mongoose = require('mongoose');
-const schema = new mongoose.Schema({
-    title: 'String',
-    start: 'Date',
-    end: 'Date',
-    phone: 'String',
-    message: 'String'
-});
+const CalendarModel = require('../Model/Calendar');
 
-const Calendar = mongoose.model('calendar', schema);
+const Calendar = CalendarModel
 
 async function findAllRepo() {
     const user = await Calendar.find()

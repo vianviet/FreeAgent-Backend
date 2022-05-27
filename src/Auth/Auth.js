@@ -1,21 +1,16 @@
 var jwt = require('jsonwebtoken');
-const { findOne } = require('../Repository/userRepository');
+const { findOne } = require('../Repository/User');
 require("dotenv").config();
 
-// var token = jwt.sign({ username: "vianviet" }, process.env.JWT_SECRET_STRING, { expiresIn: process.env.EXPIRED_TOKEN });
-
 function generateToken(data) {
-    // const token = jwt.sign(data, process.env.JWT_SECRET_STRING, { expiresIn: '15s' });
     const token = jwt.sign(data, process.env.JWT_SECRET_STRING, { expiresIn: process.env.EXPIRED_TOKEN });
     return token
 }
 
 function generateRefreshToken(data) {
-    // const token = jwt.sign(data, process.env.JWT_SECRET_STRING, { expiresIn: '15s' });
     const token = jwt.sign(data, process.env.JWT_SECRET_STRING, { expiresIn: process.env.EXPIRED_TOKEN_REFRESH });
     return token
 }
-
 
 async function verifyToken(req, res, next) {
     const authHeader = req.header('Authorization')
