@@ -1,30 +1,58 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const { connectDB } = require('./db');
-const calendarRoute = require('./src/Router/Calendar');
+const express = require("express");
+const mongoose = require("mongoose");
+const { connectDB } = require("./db");
+const calendarRoute = require("./src/Router/Calendar");
 require("dotenv").config();
-const cors = require('cors');
-const refreshTokenRoute = require('./src/Router/RefreshToken');
-const userRoute = require('./src/Router/User');
+const cors = require("cors");
+const refreshTokenRoute = require("./src/Router/RefreshToken");
+const userRoute = require("./src/Router/User");
+const { default: axios } = require("axios");
 
 const port = process.env.PORT;
 
-const main = async() => {
-    connectDB();
-    const app = express();
-    app.use(cors());
-    app.use(express.json());
-    app.use('/user', userRoute)
-    app.use('/calendar', calendarRoute)
-    app.use('/refreshToken', refreshTokenRoute)
-    app.listen(port, () => {
-        console.log(`Example app listening on port ${port}`);
-    });
+const clientId = "daef521f0e5ef44e5aee";
+const clientSecret = "6d8a503b5481a84de81ed811d9eae482f08ce3c6";
+
+const main = async () => {
+  connectDB();
+  const app = express();
+  app.get("/", (req, res) => {
+    res.redirect(
+      `https://github.com/login/oauth/authorize?client_id=${clientId}`
+    );
+  });
+  app.get("/oauth-callback", (req, res) => {
+    // console.log(req.query.code);
+    const body = {
+      client_id: clientId,
+      client_secret: clientSecret,
+      code: req.query.code,
+    };
+    const opts = { headers: { accept: "application/json" } };
+    axios
+      .post(`https://github.com/login/oauth/access_token`, body, opts)
+      .then((res) => {
+        console.log(res);
+        return res.data.access_token;
+      })
+      .then((_token) => {
+        console.log("My token:", token);
+        token = _token;
+        res.json({ ok: 1 });
+      })
+      .catch((err) => res.status(500).json({ message: err.message }));
+  });
+  app.use(cors());
+  app.use(express.json());
+  app.use("/user", userRoute);
+  app.use("/calendar", calendarRoute);
+  app.use("/refreshToken", refreshTokenRoute);
+  app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`);
+  });
 };
 
 main();
-
-
 
 // connectDB();
 // const schema = new mongoose.Schema({ username: 'string', password: 'string' });
