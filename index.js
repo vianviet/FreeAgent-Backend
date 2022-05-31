@@ -36,8 +36,7 @@ const main = async () => {
         return res.data.access_token;
       })
       .then((_token) => {
-        console.log("My token:", token);
-        token = _token;
+        console.log("My token:", _token);
         res.json({ ok: 1 });
       })
       .catch((err) => res.status(500).json({ message: err.message }));
