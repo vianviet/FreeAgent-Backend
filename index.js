@@ -37,7 +37,12 @@ const main = async () => {
       })
       .then((_token) => {
         console.log("My token:", _token);
-        res.json({ ok: 1 });
+        axios
+          .get(`https://api.github.com/user/repos`, {
+            headers: { Authorization: `token ${_token}` },
+          })
+          .then((resp) => res.json(resp.data))
+          .catch((err) => res.status(401).json({ message: err.message }));
       })
       .catch((err) => res.status(500).json({ message: err.message }));
   });
