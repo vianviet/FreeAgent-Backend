@@ -2,9 +2,9 @@ const Joi = require("joi");
 
 function addNewUserValidation(req, res, next) {
   const schema = Joi.object({
-    username: Joi.string().min(6).required(),
+    username: Joi.string().min(5).required(),
     email: Joi.string().email().required(),
-    password: Joi.string().min(6).required(),
+    password: Joi.string().min(5).required(),
     agentcode: Joi.string().empty(""),
     agentname: Joi.string().empty(" "),
     expireddate: Joi.string().empty(" "),
@@ -13,16 +13,16 @@ function addNewUserValidation(req, res, next) {
 }
 function loginValidation(req, res, next) {
   const schema = Joi.object({
-    username: Joi.string().min(6).required(),
-    password: Joi.string().min(6).required(),
+    username: Joi.string().min(5).required(),
+    password: Joi.string().min(5).required(),
   });
   validateRequest(req, res, next, schema);
 }
 function updateUserValidation(req, res, next) {
   const schema = Joi.object({
-    username: Joi.string().min(6).required(),
+    username: Joi.string().min(5).required(),
     email: Joi.string().email().required(),
-    password: Joi.string().min(6).required(),
+    password: Joi.string().min(5).required(),
     agentcode: Joi.string().empty(""),
     agentname: Joi.string().empty(" "),
     expireddate: Joi.string().empty(" "),
