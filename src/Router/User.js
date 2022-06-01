@@ -1,26 +1,34 @@
-const express = require('express');
-const { findAllController, findOneController, authenticateController, registerController, updateController, deleteController } = require('../Controller/User');
-const userRoute = express.Router()
-const { verifyToken } = require('../Auth/Auth')
+const express = require("express");
+const {
+  findAllController,
+  findOneController,
+  authenticateController,
+  registerController,
+  updateController,
+  deleteController,
+} = require("../Controller/User");
+const userRoute = express.Router();
+const { verifyToken } = require("../Auth/Auth");
+const { wrapHandle } = require("../Middleware/wrapHandle");
+const {
+  addNewUserValidation,
+  loginValidation,
+  updateUserValidation,
+} = require("../Middleware/Validation/UserValidation");
 
-userRoute.get("/", verifyToken, async(req, res) => {
-    findAllController(req, res)
-});
-userRoute.get("/:id", verifyToken, async(req, res) => {
-    findOneController(req, res)
-});
-userRoute.post("/authen", async(req, res) => {
-    authenticateController(req, res);
-});
-userRoute.post("/", verifyToken, async(req, res) => {
-    registerController(req, res);
-});
-userRoute.put("/:id", verifyToken, async(req, res) => {
-    updateController(req, res);
-});
-userRoute.delete("/:id", verifyToken, async(req, res) => {
-    deleteController(req, res);
-});
+userRoute.get("/", verifyToken, wrapHandle(findAllController));
+userRoute.get("/:id", verifyToken, wrapHandle(findOneController));
+userRoute.post("/authen", loginValidation, wrapHandle(authenticateController));
+userRoute.post(
+  "/",
+  [verifyToken, addNewUserValidation],
+  wrapHandle(registerController)
+);
+userRoute.put(
+  "/:id",
+  [verifyToken, updateUserValidation],
+  wrapHandle(updateController)
+);
+userRoute.delete("/:id", verifyToken, wrapHandle(deleteController));
 
-
-module.exports = userRoute
+module.exports = userRoute;
