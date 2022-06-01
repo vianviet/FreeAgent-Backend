@@ -1,21 +1,20 @@
 const express = require("express");
 const {
-  FindAll,
-  AddCalendar,
   findAllController,
   addCalendarController,
 } = require("../Controller/Calendar");
 const {
   addCalendarValidation,
 } = require("../Middleware/Validation/CalendarValidation");
+const { wrapHandle } = require("../Middleware/wrapHandle");
 const calendarRoute = express.Router();
 
-calendarRoute.get("/", async (req, res) => {
-  findAllController(req, res);
-});
+calendarRoute.get("/", wrapHandle(findAllController));
 
-calendarRoute.post("/", addCalendarValidation, async (req, res) => {
-  addCalendarController(req, res);
-});
+calendarRoute.post(
+  "/",
+  addCalendarValidation,
+  wrapHandle(addCalendarController)
+);
 
 module.exports = calendarRoute;
