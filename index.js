@@ -7,6 +7,7 @@ const cors = require("cors");
 const refreshTokenRoute = require("./src/Router/RefreshToken");
 const userRoute = require("./src/Router/User");
 const handleError = require("./src/Middleware/handleError");
+const { uploadRouter } = require("./src/Router/Upload");
 // const { default: axios } = require("axios");
 
 const port = process.env.PORT;
@@ -15,6 +16,10 @@ const port = process.env.PORT;
 // const clientSecret = "6d8a503b5481a84de81ed811d9eae482f08ce3c6";
 
 const main = async () => {
+  // await writeXlsxFile(objects, {
+  //   schema,
+  //   filePath: "./calendar.xlsx",
+  // });
   connectDB();
   const app = express();
   // app.get("/", (req, res) => {
@@ -52,6 +57,7 @@ const main = async () => {
   app.use("/user", userRoute);
   app.use("/calendar", calendarRoute);
   app.use("/refreshToken", refreshTokenRoute);
+  app.use("/upload", uploadRouter);
   app.use(handleError);
   app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);

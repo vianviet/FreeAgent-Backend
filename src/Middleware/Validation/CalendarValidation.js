@@ -3,8 +3,8 @@ const Joi = require("joi");
 function addCalendarValidation(req, res, next) {
   const schema = Joi.object({
     title: Joi.string().max(6).required(),
-    start: Joi.string().required(),
-    end: Joi.string().required(),
+    start: Joi.date().required(),
+    end: Joi.date().required(),
     phone: Joi.string().max(11).min(9).required(),
     message: Joi.string().required(),
   });
