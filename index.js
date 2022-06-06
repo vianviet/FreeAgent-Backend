@@ -9,17 +9,12 @@ const userRoute = require("./src/Router/User");
 const handleError = require("./src/Middleware/handleError");
 const { uploadRouter } = require("./src/Router/Upload");
 // const { default: axios } = require("axios");
-
 const port = process.env.PORT;
 
 // const clientId = "daef521f0e5ef44e5aee";
 // const clientSecret = "6d8a503b5481a84de81ed811d9eae482f08ce3c6";
 
 const main = async () => {
-  // await writeXlsxFile(objects, {
-  //   schema,
-  //   filePath: "./calendar.xlsx",
-  // });
   connectDB();
   const app = express();
   // app.get("/", (req, res) => {

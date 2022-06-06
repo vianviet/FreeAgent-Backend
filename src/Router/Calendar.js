@@ -13,7 +13,7 @@ calendarRoute.get("/findOne/:id", wrapHandle(findOneController));
 calendarRoute.get("/", wrapHandle(findAllController));
 
 calendarRoute.post(
-  "/",
+  "/:id",
   addCalendarValidation,
   wrapHandle(addCalendarController)
 );

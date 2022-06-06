@@ -27,3 +27,4 @@ const CalendarSchema = [
     value: (calendar) => calendar.message,
   },
 ];
+module.exports = CalendarSchema;

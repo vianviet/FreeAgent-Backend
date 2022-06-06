@@ -1,3 +1,4 @@
+const { findOne } = require("../Repository/Upload");
 const {
   findAllService,
   addCalendarService,
@@ -29,7 +30,10 @@ async function addCalendarController(req, res) {
     phone: req.body.phone,
     message: req.body.message,
   };
-  const result = await addCalendarService(calendar);
+  console.log("controllerllllllllll", calendar);
+  const id = req.params.id;
+  if (!id) return res.status(403).json({ message: "Id not found" }).end();
+  const result = await addCalendarService(id, calendar);
   if (result) {
     return res.status(200).json(result).end();
   } else {

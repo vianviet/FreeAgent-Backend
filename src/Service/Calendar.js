@@ -1,37 +1,43 @@
-const { findAllRepo, SaveOne, findOneRepo } = require("../Repository/Calendar");
+const {
+  findAllRepo,
+  SaveOne,
+  findOneRepo,
+  saveOne,
+} = require("../Repository/Calendar");
 const { findOne } = require("../Repository/Upload");
 
 async function findAllService() {
   const calendars = await findAllRepo();
   if (calendars) {
-    console.log(calendars);
     return calendars;
   } else {
-    console.log(calendars);
     return;
   }
 }
 async function findOneService(id) {
   const file = await findOne(id);
   if (file) {
-    console.log(file);
     const calendars = await findOneRepo(file.filename);
     if (calendars) {
-      console.log(calendars);
       return calendars;
     } else {
-      console.log(calendars);
       return;
     }
   }
 }
-async function addCalendarService(calendar) {
-  const result = await SaveOne(calendar);
-  if (result) {
-    return result;
-  } else {
-    return;
+async function addCalendarService(id, calendar) {
+  const { filename } = await findOne(id);
+  const old = await findOneRepo(filename);
+  if (old) {
+    const newCalendar = [...old, calendar];
+    const result = await saveOne(filename, newCalendar);
+    if (result) {
+      return result;
+    } else {
+      return;
+    }
   }
+  return;
 }
 
 module.exports = { findAllService, addCalendarService, findOneService };
