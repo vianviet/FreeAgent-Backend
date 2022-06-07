@@ -6,6 +6,7 @@ const {
   registerController,
   updateController,
   deleteController,
+  authenticateGoogleController,
 } = require("../Controller/User");
 const userRoute = express.Router();
 const { verifyToken } = require("../Auth/Auth");
@@ -19,6 +20,10 @@ const {
 userRoute.get("/", verifyToken, wrapHandle(findAllController));
 userRoute.get("/:id", verifyToken, wrapHandle(findOneController));
 userRoute.post("/authen", loginValidation, wrapHandle(authenticateController));
+userRoute.get(
+  "/authen/google/:token",
+  wrapHandle(authenticateGoogleController)
+);
 userRoute.post(
   "/",
   [verifyToken, addNewUserValidation],

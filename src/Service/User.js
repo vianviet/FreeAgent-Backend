@@ -50,11 +50,6 @@ async function registerService(user) {
   } else {
     const result = await AddUser(user);
     return result;
-    if (result) {
-      return result;
-    } else {
-      return;
-    }
   }
 }
 async function updateService(user, id) {
